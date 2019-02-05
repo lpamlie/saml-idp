@@ -11,7 +11,17 @@ pool:
 
 variables:
   imageName: 'saml-idp:$(build.buildId)'
+  azureSubscriptionEndpoint: PlayGround Synergi Pipeline
+  azureContainerRegistry: synergipipeline.azurecr.io
 
 steps:
+- task: Docker@1
+  displayName: Container registry login
+  inputs:
+    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
+    azureContainerRegistry: $(azureContainerRegistry)
+    command: login
 - script: docker build -f Dockerfile -t $(imageName) .
   displayName: 'docker build'
+- script: docker push $(dockerId).azurecr.io/$(imageName)
+  displayName: 'docker push'
