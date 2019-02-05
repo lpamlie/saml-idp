@@ -22,7 +22,7 @@ steps:
     azureSubscriptionEndpoint: $(azureSubscriptionEndpoint)
     azureContainerRegistry: $(azureContainerRegistry)
     command: login
-- script: docker build -f Dockerfile -t $(imageName) .
+- script: docker build -f Dockerfile -t $(azureContainerRegistry)/$(imageName) .
   displayName: 'docker build'
-- script: docker push $(dockerId).azurecr.io/$(imageName)
+- script: docker push $(azureContainerRegistry)/$(imageName)
   displayName: 'docker push'
