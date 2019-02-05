@@ -26,3 +26,8 @@ steps:
   displayName: 'docker build'
 - script: docker push $(azureContainerRegistry)/$(imageName)
   displayName: 'docker push'
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+    artifactName: 'saml-idp' 
+    publishLocation: 'Container'
