@@ -26,6 +26,9 @@ steps:
   displayName: 'docker build'
 - script: docker push $(azureContainerRegistry)/$(imageName)
   displayName: 'docker push'
+- task: CopyFiles@2
+  inputs:
+    targetFolder: '$(Build.ArtifactStagingDirectory)'
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
