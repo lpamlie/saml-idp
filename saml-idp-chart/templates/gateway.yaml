@@ -1,0 +1,57 @@
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "chart.fullname" . -}}
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: {{ $fullName }}
+  labels:
+    app.kubernetes.io/name: {{ include "chart.name" . }}
+
+spec:
+  selector:
+    app: {{ include "chart.name" . }}
+  servers:
+  - port:
+      number: {{ .Values.service.port }}
+      name: http
+      protocol: HTTP
+    ## I opened this up to any host, but then put a hosts filter on
+    # the virtual service below - no idea whether it can be omitted entirely
+    # below if not specified (as it probably would be by the template)
+    hosts:
+    - "*"
+##  ToDo:
+##    tls:
+##      httpsRedirect: true # sends 301 redirect for http requests
+
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: incoming-traffic-rule
+spec:
+  ### see note on hosts above - may need an else branch if omitted
+  hosts:
+    {{- range .Values.ingress.tls }}
+    - hosts:
+      {{- range .hosts }}
+        - {{ . | quote }}
+      {{- end }}
+    {{- end }}
+  gateways:
+  - {{ $fullName }}
+  - mesh # applies to all the sidecars in the mesh ### not sure if this applies?
+  ### remainder of templating left out - here's where we may want to iterate
+  # our way back to parameters.  these are left over from the bookinfo
+  # sample
+  http:
+  - match:
+      uri:
+        prefix: /
+    route:
+    - destination:
+        port:
+          number: 7000 # can be omitted if its the only port for reviews
+        host: saml-idp.local
+{{- end }}
