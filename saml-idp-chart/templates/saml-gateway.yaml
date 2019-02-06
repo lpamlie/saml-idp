@@ -1,19 +1,11 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "chart.fullname" . -}}
-{{- $ingressPaths := .Values.ingress.paths -}
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name: {{ $fullName }}
   labels:
     app.kubernetes.io/name: {{ include "chart.name" . }}
-    helm.sh/chart: {{ include "chart.chart" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
-    app.kubernetes.io/managed-by: {{ .Release.Service }}
-  
-  ### Don't know whether these are important or interesting to the example
-  #{{- with .Values.ingress.annotations }}
-
 spec:
   selector:
     app: {{ include "chart.name" . }}
@@ -22,7 +14,7 @@ spec:
       number: {{ .Values.service.port }}
       name: http
       protocol: HTTP
-    ## I opened this up to any host, but then put a hosts filter on 
+    ## I opened this up to any host, but then put a hosts filter on
     # the virtual service below - no idea whether it can be omitted entirely
     # below if not specified (as it probably would be by the template)
     hosts:
@@ -40,12 +32,10 @@ metadata:
 spec:
   ### see note on hosts above - may need an else branch if omitted
   hosts:
-    {{- range .Values.ingress.tls }}
     - hosts:
-      {{- range .hosts }}
+      {{- range .Values.ingress.hosts }}
         - {{ . | quote }}
       {{- end }}
-    {{- end }}  
   gateways:
   - {{ $fullName }}
   - mesh # applies to all the sidecars in the mesh ### not sure if this applies?
@@ -54,23 +44,9 @@ spec:
   # sample
   http:
   - match:
-    - headers:
-        cookie:
-          user: dev-123
-    route:
-    - destination:
-        port:
-          number: 7777
-        host: reviews.qa.svc.cluster.local
-  - match:
       uri:
-        prefix: /reviews/
+        prefix: /saml-idp/
     route:
     - destination:
-        port:
-          number: 9080 # can be omitted if its the only port for reviews
-        host: reviews.prod.svc.cluster.local
-      weight: 80
-    - destination:
-        host: reviews.qa.svc.cluster.local
-      weight: 20
+        host: saml-idp.local
+{{ end }}

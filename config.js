@@ -10,7 +10,7 @@ var profile = {
   displayName: 'saml jackson',
   email: 'saml.jackson@example.com',
   mobilePhone: '+1-415-555-5141',
-  groups: 'Simple IdP Users, West Coast Users, Cloud Users'
+  Group: 'Simple IdP Users, West Coast Users, Cloud Users'
 }
 
 /**
@@ -47,9 +47,9 @@ var metadata = [{
   description: 'The mobile phone of the user',
   multiValue: false
 }, {
-  id: "groups",
+  id: "Group",
   optional: true,
-  displayName: 'Groups',
+  displayName: 'Group',
   description: 'Group memberships of the user',
   multiValue: true
 }, {
