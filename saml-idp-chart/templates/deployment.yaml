@@ -30,3 +30,5 @@ spec:
             httpGet:
               path: /
               port: http
+      imagePullSecrets:
+        - name: saml-idp
