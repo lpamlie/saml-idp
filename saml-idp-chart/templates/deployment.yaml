@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "chart.fullname" . }}
+  name: {{ include "chart.fullname" . }}-deployment
   labels:
     app.kubernetes.io/name: {{ include "chart.name" . }}
 spec:

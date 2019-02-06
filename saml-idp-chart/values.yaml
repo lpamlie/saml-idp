@@ -10,7 +10,7 @@ image:
   pullPolicy: IfNotPresent
 
 nameOverride: ""
-fullnameOverride: "saml-idp-deployment"
+fullnameOverride: "saml-idp"
 
 service:
   type: LoadBalancer
