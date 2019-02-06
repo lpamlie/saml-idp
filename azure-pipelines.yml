@@ -11,7 +11,7 @@ pool:
 
 variables:
   imageName: 'saml-idp:$(build.buildId)'
-  azureSubscriptionEndpoint: PlatformTeamSubscription
+  azureSubscriptionEndpoint: servicemeshresource
   dockerId: platformteam
   azureContainerRegistry: $(dockerId).azurecr.io
 
