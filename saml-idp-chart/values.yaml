@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: saml-idp
+  repository: synergipipeline.azurecr.io/saml-idp
   tag: 103126
   pullPolicy: IfNotPresent
 
