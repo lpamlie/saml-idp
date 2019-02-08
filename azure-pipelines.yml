@@ -11,8 +11,8 @@ pool:
 
 variables:
   imageName: 'saml-idp:$(build.buildId)'
-  azureSubscriptionEndpoint: PlayGround Synergi Pipeline (a3a2a87e-1172-4b56-a6fe-8cecb9ae4016)
-  dockerId: synergipipeline
+  azureSubscriptionEndpoint: servicemeshresource
+  dockerId: platformteam
   azureContainerRegistry: $(dockerId).azurecr.io
 
 steps:
