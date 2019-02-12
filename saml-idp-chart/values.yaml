@@ -13,8 +13,7 @@ nameOverride: ""
 fullnameOverride: "saml-idp"
 
 service:
-  type: LoadBalancer
-  port: 80
+  port: 7000
 
 ingress:
   enabled: true
