@@ -4,10 +4,6 @@ metadata:
   name: {{ include "chart.fullname" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
-  selector:
-    matchLabels:
-      app: {{ include "chart.fullname" . }}-v1
-      version: v1
   template:
     metadata:
       labels:
