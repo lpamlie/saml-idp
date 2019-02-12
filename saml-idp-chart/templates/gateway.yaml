@@ -23,26 +23,3 @@ spec:
 ##  ToDo:
 ##    tls:
 ##      httpsRedirect: true # sends 301 redirect for http requests
-
----
-
-apiVersion: networking.istio.io/v1alpha3
-kind: VirtualService
-metadata:
-  name: incoming-traffic-rule
-spec:
-  ### see note on hosts above - may need an else branch if omitted
-  hosts:
-  - "*"
-  gateways:
-  - {{ $fullName }}
-  http:
-  - match:
-    - uri:
-        prefix: /
-    route:
-    - destination:
-        port:
-          number: 7000 # can be omitted if its the only port for reviews
-        host: saml-idp.local
-{{- end }}
