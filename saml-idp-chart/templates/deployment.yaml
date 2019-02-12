@@ -6,12 +6,12 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ include "chart.fullname" . }}
+      app: {{ include "chart.fullname" . }}-v1
       commit: v1
   template:
     metadata:
       labels:
-        app: {{ include "chart.fullname" . }}
+        app: {{ include "chart.fullname" . }}-v1
         version: v1
     spec:
       containers:
