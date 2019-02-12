@@ -7,7 +7,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ include "chart.fullname" . }}-v1
+        app: {{ include "chart.fullname" . }}
         version: v1
     spec:
       containers:
