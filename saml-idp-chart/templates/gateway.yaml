@@ -3,7 +3,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: {{ $fullName }}
+  name: {{ $fullName }}-gateway
   labels:
     name: {{ $fullName }}
 
