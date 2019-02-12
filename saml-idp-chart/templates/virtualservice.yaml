@@ -7,7 +7,7 @@ spec:
   hosts:
   - "*"
   gateways:
-  - {{ $fullName }}
+  - book-info-gateway
   http:
   - match:
     - uri:
