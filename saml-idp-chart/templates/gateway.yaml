@@ -6,20 +6,19 @@ metadata:
   name: {{ $fullName }}-gateway
   labels:
     name: {{ $fullName }}
-
 spec:
   selector:
-    app: {{ $fullName }}
+    istio: ingressgateway
   servers:
   - port:
-      number: {{ .Values.service.port }}
+      number: 80
       name: http
       protocol: HTTP
     ## I opened this up to any host, but then put a hosts filter on
     # the virtual service below - no idea whether it can be omitted entirely
     # below if not specified (as it probably would be by the template)
     hosts:
-    - "*"
+    - samlidp.platform
 ##  ToDo:
 ##    tls:
 ##      httpsRedirect: true # sends 301 redirect for http requests

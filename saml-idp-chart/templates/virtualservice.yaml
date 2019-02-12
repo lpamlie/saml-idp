@@ -5,9 +5,10 @@ metadata:
   name: {{ $fullName }}-virtual-service
 spec:
   hosts:
-  - "*"
+  - {{ $fullName }}
+  - samlidp.platform
   gateways:
-  - book-info-gateway
+  - {{ $fullName }}-gateway
   http:
   - match:
     - uri:
