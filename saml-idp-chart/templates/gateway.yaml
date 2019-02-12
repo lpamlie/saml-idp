@@ -5,11 +5,11 @@ kind: Gateway
 metadata:
   name: {{ $fullName }}
   labels:
-    app.kubernetes.io/name: {{ include "chart.name" . }}
+    name: {{ $fullName }}
 
 spec:
   selector:
-    app: {{ include "chart.name" . }}
+    app: {{ $fullName }}
   servers:
   - port:
       number: {{ .Values.service.port }}
